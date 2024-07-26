@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salário Líquido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Fonte básica */
+            background-color: #f4f4f4; /* Cor de fundo suave */
+            display: flex; /* Usando Flexbox */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            height: 100vh; /* Altura da tela */
+            margin: 0; /* Remove margens */
+        }
+        h2 {
+            color: #333; /* Cor do título */
+        }
+        form {
+            background: white; /* Fundo do formulário */
+            padding: 20px; /* Espaçamento interno */
+            border-radius: 5px; /* Bordas arredondadas */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        label {
+            margin: 10px 0; /* Margem entre os rótulos */
+            display: block; /* Faz com que o label ocupe toda a largura */
+        }
+        input[type="number"] {
+            width: 100%; /* Largura completa */
+            padding: 10px; /* Espaçamento interno */
+            margin-top: 5px; /* Espaçamento acima */
+            border: 1px solid #ccc; /* Borda leve */
+            border-radius: 4px; /* Bordas arredondadas */
+        }
+        button {
+            background-color: #28a745; /* Cor do botão */
+            color: white; /* Cor do texto do botão */
+            border: none; /* Sem borda */
+            padding: 10px 15px; /* Espaçamento interno */
+            margin-top: 10px; /* Espaçamento acima */
+            border-radius: 4px; /* Bordas arredondadas */
+            cursor: pointer; /* Cursor de ponteiro */
+        }
+        button:hover {
+            background-color: #218838; /* Cor do botão ao passar o mouse */
+        }
+        #resultado {
+            margin-top: 20px; /* Espaçamento acima do resultado */
+            padding: 10px; /* Espaçamento interno */
+            background: #e9ecef; /* Fundo do resultado */
+            border-radius: 5px; /* Bordas arredondadas */
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Salário Líquido</h2>
+    <form id="salaryForm">
+        <label for="salarioFixo">Salário Fixo:</label>
+        <input type="number" id="salarioFixo" name="salarioFixo" required>
+        <br>
+        <label for="faltasTotais">Faltas Totais:</label>
+        <input type="number" id="faltasTotais" name="faltasTotais" value="0">
+        <br>
+        <button type="button" onclick="calcularSalario()">Calcular Salário Líquido</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularSalario() {
+            var salarioFixo = parseFloat(document.getElementById('salarioFixo').value);
+            var faltasTotais = parseInt(document.getElementById('faltasTotais').value);
+
+            if (isNaN(faltasTotais)) {
+                alert("Por favor, insira um valor válido para Faltas Totais.");
+                return;
+            }
+
+            var descontoPorFaltas = faltasTotais * 100; // R$100 de desconto por falta
+            var salarioLiquido = salarioFixo - descontoPorFaltas;
+
+            var resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = '<h3>Resultado:</h3>' +
+                                     '<p>Salário Fixo: R$ ' + salarioFixo.toFixed(2) + '</p>' +
+                                     '<p>Desconto por Faltas: R$ ' + descontoPorFaltas.toFixed(2) + '</p>' +
+                                     '<p>Salário Líquido: R$ ' + salarioLiquido.toFixed(2) + '</p>';
+        }
+    </script>
+</body>
+</html>
